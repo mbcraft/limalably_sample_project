@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>429 - Too many requests</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        {% include 'errors/html/error_introspection_head.html' %}
+        {% include 'pages/common/head_assets.twig' %}
+    </head>
+    <body>
+        {% include 'pages/common/top_menu_panel.twig' %}
+        <div align="center">
+            <div style="padding:50px;width:800px;">
+                <img src="/assets/images/errors/429.png" alt="image not found" style="float:left;display:inline-block;"/>
+                <div style="padding:50px;width:440px;display:inline-block;">
+                    <h2>Too many requests</h2>
+                    <h4>The server received too many concurrent requests and is unable to complete its operations.</h4>
+                </div>
+            </div>
+        </div>
+        {% include 'errors/html/error_introspection.html' %}
+    </body>
+</html>

@@ -1,0 +1,6 @@
+{
+	"exec" : [
+		"CommentLogic#save_comment",
+		"PostLogic#go_to_view_post"
+	]
+}

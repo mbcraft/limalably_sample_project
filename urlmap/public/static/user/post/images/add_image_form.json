@@ -1,0 +1,9 @@
+{
+	"session" : {
+		"/user/role" : ["admin"]
+	},
+	"exec" : "PostLogic#prepare_add_image",
+	"template" : {
+		"name" : "user/post/images/add_image_form.twig"
+	}
+}

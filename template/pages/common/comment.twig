@@ -1,0 +1,47 @@
+{% if new_comment_id == comment.id %}
+<a name="new_comment"></a>
+{% endif %}
+<div class="container-fluid row">
+{% if admin %}
+<div id="div_comment_{{ comment.id }}" class="offset-{{ comment.getLevel() }} col border rounded-4 {% if not comment.letto %}border-success border-5{% else %}border-primary border-2{% endif %}">
+{% else %}
+<div class="offset-{{ comment.getLevel() }} col border rounded-4 {% if new_comment_id == comment.id %}border-success border-5{% else %}border-primary border-2{% endif %}">
+{% endif %}
+<div class="container vstack">
+	<div class="p-1">
+		<div class="container hstack">
+			{% if new_comment_id == comment.id %}
+			<h5><i class="fa fa-meteor text-danger p-3"></i></h5>
+			{% endif %}
+			<h6><b><i class="fa fa-user"></i> {{ comment.nominativo }}</b></h6>
+		</div>
+	</div>
+	<div class="p-1">
+		{{ comment.testo }}
+	</div>
+	<div class="container hstack justify-content-evenly p-1">
+		<div class="p-3 text-center">
+			<a href="#formCommento" onclick="javascript:updateCommentReplyTo('{{ comment.ordine_string }}');"><h6><b><span class="d-none d-sm-block">Rispondi&nbsp;</span><i class="fa fa-reply"></i></b></h6></a>
+		</div>
+		<div class="p-3 text-center">
+			<a href="#comment_like" onclick="javascript:toggleHeart(this);" data-like-type="post_comment" data-like-element-id="{{ comment.id }}" data-toggle-mode="on"><h6><b><span class="d-none d-sm-block">Metti un </span><i class="bi bi-heart"></i></b> {% if comment.likes > 0 %}({{ comment.likes }}){% endif %} </h6></a>
+		</div>
+		{% if admin %}
+			<div class="p-3 text-center">
+				{% if not comment.letto %}
+				<div id="command_readed_{{ comment.id }}">
+				<a href="#commentReaded" onclick="javascript:markAsReaded({{ comment.id }});"><h6><b>Segna come letto</b>&nbsp;<i class="fa-regular fa-envelope-open"></i></h6></a>
+				</div>
+				{% endif %}
+			
+			</div>
+			
+			<div id="comando_commento_letto_{{ comment.id }}" class="p-3 text-center">
+				<a href="#boh" onclick="javascript:markAsDeleted({{ comment.id }});"><h6><b>Elimina</b>&nbsp;<i class="fa-regular fa-trash-can"></i></h6></a>
+			</div>
+			
+		{% endif %}
+	</div>
+</div>
+</div>
+</div>

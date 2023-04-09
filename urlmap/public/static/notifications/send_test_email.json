@@ -1,0 +1,3 @@
+{
+	"exec" : "NotificationLogic#send_test_email"
+}

@@ -1,0 +1,6 @@
+{
+	"exec" : ["PostLogic#view_post","CommentLogic#load_comments"],
+	"template" : {
+		"name" : "pages/frontend/view_post.twig"
+	}
+}

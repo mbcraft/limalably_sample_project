@@ -1,0 +1,24 @@
+{% for message in flash.info %}
+<div class="alert alert-info alert-dismissible fade show" role="alert">
+  <i class="fa-solid fa-circle-info"></i> {{ message }}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
+{% for message in flash.success %}
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  <i class="fa-solid fa-circle-check"></i> {{ message }}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
+{% for message in flash.warning %}
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <i class="fa-solid fa-triangle-exclamation"></i> {{ message }}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}
+{% for message in flash.error %}
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+  <i class="fa-solid fa-triangle-exclamation"></i> {{ message }}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endfor %}

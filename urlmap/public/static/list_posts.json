@@ -1,0 +1,6 @@
+{
+	"exec" : "PostLogic#list_posts",
+	"template" : {
+		"name" : "pages/frontend/list_posts.twig"
+	}
+}

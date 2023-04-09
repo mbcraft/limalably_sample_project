@@ -1,0 +1,17 @@
+{% if pagination.page_sizes[name] %}
+<div class="container hstack justify-content-center">
+    <h6 class="p-3">Dimensione pagina :</h6>
+    <nav aria-label="dimensioni_pagina">
+        <ul class="pagination">
+            {% for item in pagination.page_sizes[name] %}
+            <li class="page-item {% if item.disabled %}disabled{%endif%} {% if item.active %}active{% endif %}">
+                <a class="page-link" {% if item.link %}href="{{ item.link }}"{% endif %}>
+                    {{ item.label }}
+                </a>
+            </li>
+            {% endfor %}
+
+        </ul>
+    </nav>
+</div>
+{% endif %}

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="author" content="">
+        <title>Customer Name - Blog</title>
+        <!-- Bootstrap core CSS -->
+        {% include 'pages/common/head_assets.twig' %}
+        <link rel="stylesheet" href="/assets/css/blocks.css" >
+    </head>
+    <body class="fw-light text-secondary bg-dark">
+        {% include 'pages/common/top_menu_panel.twig' %}
+        <section class="container-fluid row justify-content-center bg-dark pb-1 pt-1">
+            <img src="{{ category.my_image_url }}" class="img-fluid" />
+        </section>
+        <div class="bg-dark pt-2 text-white">
+            <div class="d-flex pb-2 pt-1 vstack">
+                {% for post in posts %}
+                <hr />
+                <div>
+                    {% if post.immagini_list is not empty %}
+                    <div class="container-fluid justify-content-start p-5">
+                        <div class="row">
+                            {% for immagine in post.immagini_list %}
+                            <div class="col-lg-3 col-md-4 col-sm-6 p-1">
+                                <a class="link-primary" href="{{ immagine.attachment.my_original_image_url }}" target="_blank"><img src="{{ immagine.attachment.my_preview_image_url }}" /></a>
+                            </div>                
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+                    <div class="container d-flex hstack">
+                        <div class="p-2">
+                            <h2><a href="/view_post?post_id={{ post.id }}">{{ post.titolo }}</a></h2>
+                        </div>
+                        {% if post.link_video %}
+                        <div class="p-2">
+                            <a href="{{ post.link_video }}" target="_blank"><i class="bi bi-play-btn-fill display-6"></i></a>
+                        </div>
+                        {% endif %}
+                    </div>
+                    <div class="p-3">
+                        <p>{{ post.testo }}</p>
+                    </div>
+                </div>
+                {% else %}
+                <div class="container-fluid row justify-content-center">
+                    <div class="col-sm-6 col-md-4 col-lg-3">
+                        <img src="/assets/images/errors/503.png" >
+                        <h2>Non ci sono ancora post in questa categoria.</h2>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% include 'pages/frontend/footer.twig' %}
+    </body>
+</html>

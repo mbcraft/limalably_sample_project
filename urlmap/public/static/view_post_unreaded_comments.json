@@ -1,0 +1,9 @@
+{
+	"session" : {
+		"/user/role" : ["admin"] 
+	},
+	"exec" : ["PostLogic#view_post","CommentLogic#load_comments"],
+	"template" : {
+		"name" : "pages/backend/view_post_unreaded_comments.twig"
+	}
+}

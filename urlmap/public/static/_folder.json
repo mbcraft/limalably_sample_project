@@ -1,0 +1,6 @@
+{
+	"exec" : "CategoryLogic#list_categories",
+	"template" : {
+		"name" : "pages/frontend/list_categories.twig"
+	}
+}

@@ -1,0 +1,6 @@
+{
+	"exec" : "PaginatorTest#paginator_one",
+	"template" : {
+		"name" : "test/paginator.twig"
+	}
+}

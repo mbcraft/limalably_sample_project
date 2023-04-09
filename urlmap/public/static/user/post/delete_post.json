@@ -1,0 +1,7 @@
+{
+	"session" : {
+		"/user/role" : ["admin"]
+	},
+	"exec" : "PostLogic#delete_post",
+	"http_redirect" : "user/post/list_table"
+}

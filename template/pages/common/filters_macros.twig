@@ -1,0 +1,34 @@
+
+{% macro reset_filters_js_support() %}
+	<script type="text/javascript">
+
+		function resetFilters(name) {
+
+			var form_name = "reset_filters_" + name;
+
+			form = document.getElementById(form_name);
+
+			if (form==null) alert("You need to add the reset_filters_form("+name+") for resetting the filters!");
+			else
+				form.submit();
+		}
+
+	</script>
+{% endmacro %}
+
+{% macro begin_filter_form(name,redirect_to) %}
+	<form name="filters_{{ name }}" method="POST" action="/common/apply_filters">
+		<input type="hidden" name="apply_filters_name" value="{{ name }}">
+		<input type="hidden" name="redirect_to_after_apply" value="{{ redirect_to }}">
+{% endmacro %}
+
+{% macro reset_filters_button(name) %}
+	<button class="btn btn-primary" type="button" onclick="resetFilters('{{ name }}');">Reset filtri</button>
+{% endmacro %}
+
+{% macro reset_filters_form(name,redirect_to) %}
+	<form id="reset_filters_{{ name }}" name="reset_filters" method="POST" action="/common/reset_filters">
+		<input type="hidden" name="reset_filters_name" value="{{ name }}">
+		<input type="hidden" name="redirect_to_after_reset" value="{{ redirect_to }}">
+	</form>
+{% endmacro %}

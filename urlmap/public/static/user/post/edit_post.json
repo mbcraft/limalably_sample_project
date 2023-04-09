@@ -1,0 +1,8 @@
+{
+	"session" : {
+		"/user/role" : ["admin"]
+	},
+	"exec" : "PostLogic#edit_post"
+	
+	
+}

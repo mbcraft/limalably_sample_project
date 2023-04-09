@@ -1,0 +1,183 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Elenco post</title>
+		{% include 'pages/common/head_assets.twig' %}
+	</head>
+	<body>
+		{% include 'pages/common/top_menu_panel.twig' %}
+		{% include 'pages/backend/modal_delete_element.twig' %}
+		{% include 'pages/common/top_flash_messages.twig' %}
+		{% import 'pages/common/filters_macros.twig' as forms %}
+
+		{{ forms.reset_filters_js_support }}
+
+		<div class="container">
+			<div class="row justify-content-end">
+				<div class="col-1">
+					<button class="btn {% if session.__filters.post %}btn-primary{% else %}btn-light{% endif %}" type="button" data-bs-toggle="collapse" data-bs-target="#formFiltri" aria-expanded="false" aria-controls="formFiltri"><i class="bi bi-toggles"></i></button>
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<div class="col-6">
+					<div id="formFiltri" class="accordion-collapse collapse border border-primary border-3 rounded p-3">
+				      <div class="accordion-body">
+				      	{{ forms.begin_filter_form('post','/user/post/list_table') }}
+				      			<div class="container-fluid">
+					      			<div class="row">
+					      				<div class="col-6">
+					      					<div class="mb-3">
+						      					<label for="categoriaInput">
+													Categoria :
+												</label>
+											</div>
+											<div class="mb-3">
+												<select id="categoriaInput" class="form-control" name="categoria_id">
+													<option value="">-- Scegli una categoria --</option>
+													{% for category in category_list %}
+													<option value="{{ category.id }}" {% if category.selected %}selected{%endif%}>{{ category.category_name }}</option>
+													{% endfor %}
+												</select>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-6">
+											<div class="container hstack">
+												<div class="p-3">
+												<input id="soloCommentiNonLettiInput" type="checkbox" class="form-check-input" name="solo_con_commenti_non_letti" {% if solo_con_commenti_non_letti %}checked{% endif %}>
+												</div>
+
+												<label for="soloCommentiNonLettiInput" class="p-3">
+													Mostra solo post con commenti non letti
+												</label>
+												
+											</div>
+										</div>
+									</div>
+									<div class="row justify-content-evenly">
+										<div class="col-2">
+											<button class="btn btn-primary" type="submit">Filtra</button>
+										</div>
+										<div class="col-2">
+							      			{{ forms.reset_filters_button('post') }}
+							      		</div>
+									</div>
+								</div>
+				      	</form>
+				      	{{ forms.reset_filters_form('post','/user/post/list_table') }}
+				      </div>
+				    </div>
+				</div>
+			</div>
+		</div>
+		{% include 'pages/common/pagination_pages.twig' with { 'name' : 'post'} %}
+		{% include 'pages/common/pagination_page_sizes.twig' with { 'name' : 'post'} %}
+		
+		<div class="container p-3">
+			{% for post in posts %}
+				{% if loop.first %}
+				<table class="table table-hover table-striped table-primary caption-top align-middle text-center">
+					<caption>Elenco dei post</caption>
+					<thead>
+						<th>ID</th>
+						<th>Categoria</th>
+						<th>Titolo</th>
+						<th>Testo</th>
+						<th>Numero immagini</th>
+						<th>Commenti da leggere</th>
+						<th>Video</th>
+						<th>Ordine</th>
+						<th>Operazioni</th>
+					</thead>
+					<tbody class="table-group-divider">
+				{% endif %}
+
+				<tr>
+					<td>{{ post.id }}</td>
+					<td>{{ post.category.category_name }}</td>
+					<td>{{ post.titolo_short }}</td>
+					<td>{{ post.testo_short }}</td>
+					<td>{{ post.immagini_count }}</td>
+					<td>{% if post.unreaded_comments_count>0 %}<b class="text-danger">{{ post.unreaded_comments_count }}</b>{% else %}0{% endif%}</td>
+					<td>{% if post.link_video %}<a href="{{ post.link_video }}" target="_blank"><i class="bi bi-play-btn-fill display-6"></i></a>{% else %}-{% endif %}</td>
+					<td>{{ post.order_val }}</td>
+					<td class="align-top">
+						<div class="container d-flex">
+							<div class="vstack gap-2">
+							<div class="hstack gap-2">				
+								{% if not post.is_first() %}
+							
+								<form method="POST" action="/user/post/move_first">
+									<input type="hidden" name="post_id" value="{{post.id}}" >
+									<button type="submit" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Sposta all'inizio" class="btn btn-primary"><i class="fa-solid fa-backward-fast"></i></button>
+								</form>
+								<form method="POST" action="/user/post/move_previous">
+									<input type="hidden" name="post_id" value="{{post.id}}" >
+									<button type="submit" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Sposta prima" class="btn btn-primary"><i class="fa-solid fa-backward-step"></i></button>
+								</form>
+								{% endif %}
+							
+								{% if not post.is_last() %}
+								<form method="POST" action="/user/post/move_next">
+									<input type="hidden" name="post_id" value="{{post.id}}" >
+									<button type="submit" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Sposta dopo" class="btn btn-primary"><i class="fa-solid fa-forward-step"></i></button>
+								</form>
+								<form method="POST" action="/user/post/move_last">
+									<input type="hidden" name="post_id" value="{{post.id}}" >
+									<button type="submit" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Sposta alla fine" class="btn btn-primary"><i class="fa-solid fa-forward-fast"></i></button>
+								</form>
+								{% endif %}
+							</div>
+							
+								<div class="hstack gap-2">
+									<form method="POST" action="/user/post/edit_post_form">
+										<input type="hidden" name="post_id" value="{{post.id}}" >
+										<button type="submit" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Modifica post" class="btn btn-secondary"><i class="fa-solid fa-pencil"></i></button>
+									</form>
+									<form method="GET" action="/user/post/images/list_table">
+										<input type="hidden" name="post_id" value="{{post.id}}" >
+										<button type="submit" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Gestione immagini post" class="btn btn-secondary"><i class="fa-solid fa-images"></i></button>
+									</form>
+									<form method="GET" action="/view_post_unreaded_comments">
+										<input type="hidden" name="post_id" value="{{post.id}}" >
+										<button type="submit" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Gestione commenti post" class="btn btn-secondary"><i class="fa-regular fa-comments"></i></button>
+									</form>
+									<form id="deletePostForm_{{post.id}}" method="POST" action="/user/post/delete_post">
+										<input type="hidden" name="post_id" value="{{post.id}}" >
+										<button type="button" data-bs-toggle="modal" data-bs-target="#modalDeleteElement" data-form-target="deletePostForm_{{post.id}}" class="open-modal-delete-button btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+									</form>
+								</div>
+							</div>
+						</div>
+					</td>
+				</tr>
+
+
+				{% if loop.last %}
+					</tbody>
+				</table>
+				{% endif %}
+			{% else %}
+			<div class="container">
+				<div class="row justify-content-center">
+					<div class="col-4">
+						<h3>Non ci sono elementi da visualizzare</h3>
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+			<div class="container">
+				<div class="row justify-content-center">
+					<div class="col-6 text-center">
+						<form method="POST" action="/user/post/edit_post_form">
+							Aggiungi un nuovo post : <button type="submit" class="btn btn-primary"><i class="fa-solid fa-plus"></i></button>
+						</form>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		{% include 'pages/backend/footer_tooltip_activator.twig' %}
+	</body>
+</html>

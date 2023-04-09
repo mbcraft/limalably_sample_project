@@ -1,0 +1,47 @@
+{
+    "database": {
+        "development_db" : {
+            "driver" : "mysql",
+            "host" : "localhost",
+            "username" : "db_user_sample_limalably_project",
+            "password" : "db_pw_sample_limalably_project",
+            "db_name" : "db_name_to_configure"
+        }
+    },
+	"execution_mode" : {
+		"maintenance" : {
+                    "misc" : {
+                            "trace_enabled" : false,
+                            "debug_enabled" : false,
+                            "introspection_enabled" : false
+                    }
+		},
+                "development" : {
+                    "misc" : {
+                        "debug_enabled" : false,
+                        "trace_enabled" : false,
+                        "introspection_enabled" : true
+                    }
+                }
+	},
+    "session" : {
+        "strict_mode" : null
+    },
+    "logging": {
+        
+        "log_folder": "my_logs/"
+
+    },
+    "misc" : {
+           "send_email_notifications" : false,
+           "admin" : {
+                "id" : 2,
+                "full_name" : "Your name",
+                "e_mail" : "your_email@email.com",
+                "username" : "your_username",
+                "password" : "your_password"
+           },
+           "basedir" : "",
+           "merge_wwwroot" : false
+        }
+}

@@ -1,0 +1,7 @@
+{
+	"session" : {
+		"/user/role" : ["admin"]
+	},
+	"exec" : "CommentLogic#mark_deleted",
+	"format" : "json"
+}

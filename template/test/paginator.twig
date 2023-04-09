@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="author" content="">
+        <title>Customer Name - Blog</title>
+        <!-- Bootstrap core CSS -->
+        {% include 'pages/common/head_assets.twig' %}
+        <link rel="stylesheet" href="/assets/css/blocks.css" >
+    </head>
+    <body class="fw-light text-secondary">
+        <div class="container hstack">
+            <h6 class="p-3">Pagina :</h6>
+            <nav aria-label="numero_pagina">
+                <ul class="pagination">
+                    {% for item in paginator_items %}
+                    <li class="page-item {% if item.disabled %}disabled{%endif%} {% if item.active %}active{% endif %}">
+                        <a class="page-link" {% if item.link %}href="{{ item.link }}"{% endif %}>
+                            {{ item.label }}
+                        </a>
+                    </li>
+                    {% endfor %}
+
+                </ul>
+            </nav>
+        </div>
+        <div class="container hstack">
+            <h6 class="p-3">Dimensione pagina :</h6>
+            <nav aria-label="dimensioni_pagina">
+                <ul class="pagination">
+                    {% for item in page_sizer_items %}
+                    <li class="page-item {% if item.disabled %}disabled{%endif%} {% if item.active %}active{% endif %}">
+                        <a class="page-link" {% if item.link %}href="{{ item.link }}"{% endif %}>
+                            {{ item.label }}
+                        </a>
+                    </li>
+                    {% endfor %}
+
+                </ul>
+            </nav>
+        </div>
+        <footer class="bg-dark pt-2 text-white">
+            <div class="container"> 
+                <div class="pb-3 pt-3 small"> 
+                    <hr class="border-secondary mt-0"> 
+                    <div class="align-items-center row">
+                        <div class="col-md pb-2 pt-2">
+                            <p class="mb-0">Realizzato nel 2022-2023 | Powered by MBCRAFT</p>
+                        </div>
+                    </div>                     
+                </div>                 
+            </div>
+        </footer>
+
+    </body>
+</html>

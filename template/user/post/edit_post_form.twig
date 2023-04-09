@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Crea post</title>
+		{% include 'pages/common/head_assets.twig' %}
+	</head>
+	<body>
+		{% include 'pages/common/top_menu_panel.twig' %}
+		{% include 'pages/common/top_flash_messages.twig' %}
+		<div class="container p-3">
+			<div>
+				<a href="/user/post/list_table">Annulla e torna all'elenco dei post</a>
+			</div>
+		</div>
+		<div class="container">
+				<div class="row justify-content-center">
+					<div class="col-4">
+						<form method="POST" action="/user/post/edit_post">
+							<input type="hidden" name="post_id" value="{{ post.id }}">
+							<div class="mb-3">
+								<label for="categoriaInput">
+									Categoria :
+								</label>
+							</div>
+							<div class="mb-3">
+								{% if is_new %}
+								<select name="categoria_id" required>
+									<option value="">-- Scegli una categoria --</option>
+									{% for category in category_list %}
+									<option value="{{ category.id }}" {% if category.selected %}selected{%endif%}>{{ category.category_name }}</option>
+									{% endfor %}
+								</select>
+								{% else %}
+								<b>{{ post.category.category_name }}</b> (NON MODIFICABILE)
+								{% endif %}
+							</div>
+							<div class="mb-3">
+								<label for="titoloInput">
+									Titolo :
+								</label>
+							</div>
+							<div class="mb-3">
+								<input id="titoloInput" class="form-control" type="text" name="titolo" value="{{ post.titolo }}" required>
+							</div>
+							<div class="mb-3">
+								<label for="testoInput">
+									Testo :
+								</label>
+							</div>
+							<div class="mb-3">
+								<textarea id="testoInput" class="form-control" rows="5" name="testo" required>{{ post.testo }}</textarea>
+							</div>
+							<div class="mb-3">
+								<label for="linkVideoInput">
+									Link video :
+								</label>
+							</div>
+							<div class="mb-3">
+								<input id="linkVideoInput" class="form-control" type="url" name="link_video" value="{{ post.link_video }}" >
+							</div>
+							<div class="mb-3">
+								<button type="submit" class="btn btn-primary">Salva</button>
+							</div>
+
+						</form>
+					</div>
+				</div>
+			</div>
+	</body>
+</html>

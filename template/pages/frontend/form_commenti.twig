@@ -1,0 +1,126 @@
+<div class="p-3 border rounded-3 border-warning">
+	<h3>Scrivi il tuo commento!</h3>
+	<form id="formCommento" name="post_comment" method="POST" action="user/post/write_comment">
+		<input type="hidden" name="post_id" value="{{ post.id }}" >
+		<input id="replyToHiddenInput" type="hidden" name="reply_to" value="{{ last_ordine_string }}" >
+		
+		<input id="readFlagStatusHiddenInput" type="hidden" name="mark_as_already_readed" value="0">
+		
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-6 col-lg-4">
+					<div class="mb-3">
+						<label for="nominativoInput">Nome e cognome * :</label>
+					</div>
+					<div class="mb-3">
+						<input id="nominativoInput" type="text" class="form-control" name="nominativo" required>
+					</div>
+				</div>
+				<div class="col-sm-6 col-lg-4">
+					<div class="mb-3">
+						<label for="emailInput">Email <i class="fa fa-info-circle" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Campo facoltativo, per ricevere notifiche email di commenti di risposta"></i> : </label>
+					</div>
+					<div class="mb-3">
+						<input id="emailInput" type="email" name="e_mail" class="form-control">
+					</div>
+				</div>
+			</div>
+			<div class="row align-items-end">
+				<div class="col-sm-12 col-lg-8">
+					<div class="mb-3">
+						<label for="testoInput">Testo * :</label>
+					</div>
+					<div class="mb-3">
+						<textarea id="testoInput" name="testo" class="form-control" rows="5"></textarea>
+					</div>
+				</div>
+				<div class="col-sm-10 col-lg-3">
+					<div class="p-3">
+						<button type="submit" class="btn btn-primary p-3">Invia commento</button>		
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+	</form>
+</div>
+<script type="text/javascript">
+	
+	function updateCommentReplyTo(reply_to) {
+		var input_field = document.getElementById('replyToHiddenInput');
+		input_field.value = reply_to;
+	}
+
+	function toggleHeart(eventSource) {
+		var toggleMode = eventSource.getAttribute('data-toggle-mode');
+		var like_type = eventSource.getAttribute('data-like-type');
+		var like_element_id = eventSource.getAttribute('data-like-element-id');
+
+		if (toggleMode=='on') {
+			var text_prefix_result = "<h6><b><span class='d-none d-sm-block'>Togli un </span><i class='bi text-danger bi-heart-fill'></i></b>";
+			var new_toggle_mode = 'off';
+		}
+		if (toggleMode=='off') {
+			var text_prefix_result = "<h6><b><span class='d-none d-sm-block'>Metti un </span><i class='bi bi-heart'></i></b>";
+			var new_toggle_mode = 'on';
+		}
+
+		$.ajax({
+		  url: "/user/post/toggle_like",
+		  data: {
+		    like_type: like_type,
+		    like_event: toggleMode,
+		    like_element_id: like_element_id
+		  },
+		  success: function( result ) {
+
+		  	var like_count = result['data']['like_count'];
+
+		  	var like_string = "";
+		  	if (like_count>0) {
+		  		like_string += "("+like_count+")";
+		  	}
+
+		    eventSource.setAttribute('data-toggle-mode',new_toggle_mode);
+			eventSource.innerHTML = text_prefix_result + like_string + "</h6>";
+		  }
+		});
+
+	}
+
+	function markAsReaded(comment_id) {
+		$.ajax({
+		  url: "/user/post/comments/mark_readed",
+		  data: {
+		    comment_id: comment_id
+		  },
+		  success: function( result ) {
+
+		  	var element = document.getElementById('div_comment_'+comment_id);
+		  	$(element).removeClass('border-success');
+		  	$(element).addClass('border-primary');
+		  	$(element).removeClass('border-5');
+		  	$(element).addClass('border-2');
+		  	
+		  	var command_element = document.getElementById('command_readed_'+comment_id);
+		  	command_element.remove();
+		  }
+		});
+	}
+
+	function markAsDeleted(comment_id) {
+		$.ajax({
+		  url: "/user/post/comments/mark_deleted",
+		  data: {
+		    comment_id: comment_id
+		  },
+		  success: function( result ) {
+
+		  	var element = document.getElementById('div_comment_'+comment_id);
+		  	element.remove();
+		  }
+		});
+	}
+
+</script>

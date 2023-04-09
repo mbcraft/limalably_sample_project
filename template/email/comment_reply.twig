@@ -1,0 +1,26 @@
+<div>
+	<hr />
+	<h5>
+		L'utente '{{ commento.nominativo }}' ha scritto un commento in risposta al tuo commento!
+		<br />
+		<br />
+		Eccolo :
+		<br />
+		<br /> 
+	</h5>
+
+	<h5>
+		<p style="color:blue;">
+			{{ commento.testo }}
+		</p>
+	</h5>
+	<hr />
+	<h5>Per visualizzare la pagina e rispondere al commento <a href="https://www.marcobedeschi.it/view_post?post_id={{ commento.post_id }}&new_comment_id={{ commento.id }}">CLICCA QUI</a> oppure copia e incolla nel browser il seguente link :
+	<br />
+	<br />
+	<u>https://www.marcobedeschi.it/view_post?post_id={{ commento.post_id }}&new_comment_id={{ commento.id }}</u>
+	<br />
+	<br />
+	Troverai il commento evidenziato in verde. <br />Se non vuoi essere notificato dei commenti non inserire la tua email nei commenti che scrivi. <br />Ricevi questa e-mail perch&egrave; un utente ha risposto a un tuo commento sul blog <a href="https://www.marcobedeschi.it">www.marcobedeschi.it</a>.</h5>
+	<hr />
+</div>

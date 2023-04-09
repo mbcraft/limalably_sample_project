@@ -1,0 +1,43 @@
+<div class="modal" tabindex="-1" id="modalDeleteElement">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Conferma eliminazione</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Sei sicuro di voler eliminare questo elemento?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annulla</button>
+        <button type="button" id="deleteConfirmButton" data-form-target="" class="btn btn-primary">Conferma</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+    const deleteConfirmButton = document.getElementById('deleteConfirmButton');
+    const modalDeleteElement = document.getElementById('modalDeleteElement');
+
+    modalDeleteElement.addEventListener('show.bs.modal', event => {
+      // Button that triggered the modal
+      const button = event.relatedTarget;
+      // Extract info from data-bs-* attributes
+      const form_target_id = button.getAttribute('data-form-target')
+      
+      
+      deleteConfirmButton.setAttribute('data-form-target',form_target_id);
+    });
+
+    deleteConfirmButton.addEventListener('click', event => {
+
+      const form_target_id = deleteConfirmButton.getAttribute('data-form-target');
+
+      const form_target = document.getElementById(form_target_id);
+
+      form_target.submit();
+      
+    });
+
+
+  </script>

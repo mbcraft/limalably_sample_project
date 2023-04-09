@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Aggiungi immagine</title>
+		{% include 'pages/common/head_assets.twig' %}
+	</head>
+	<body>
+		{% include 'pages/common/top_menu_panel.twig' %}
+		{% include 'pages/common/top_flash_messages.twig' %}
+		<div class="container p-3">
+			<div>
+				<a href="/user/post/images/list_table?post_id={{ post_id }}">Annulla e torna all'elenco delle immagini</a>
+			</div>
+		</div>
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-4">
+					<form method="POST" enctype="multipart/form-data" action="/user/post/images/add_image">
+						<input type="hidden" name="element_id" value="{{ post_id }}" >
+						<input type="hidden" name="element_type" value="Post" >
+						<div class="mb-3">
+						<label for="immagineInput">
+							Seleziona un'immagina da aggiungere al post e premi il pulsante carica. Attenzione, potrebbe non essere possibile caricare immagini di dimensioni troppo grandi, in tal caso vanno prima ridimensionate sul pc prima di essere caricate.	
+						</label>
+						</div>
+						<div class="mb-3">
+							<input id="immagineInput" type="file" accept="image/*" name="immagine" required>
+						</div>
+						<div class="mb-3">
+							<button type="submit" class="btn btn-primary">Carica</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

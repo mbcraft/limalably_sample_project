@@ -1,0 +1,6 @@
+{
+	"template" : {
+		"name" : "errors/html/400.html",
+		"engine" : "twig"
+	}
+}

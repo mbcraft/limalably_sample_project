@@ -1,0 +1,11 @@
+{
+	"session" : {
+		"/user/role" : ["admin"]
+	},
+	"exec" : [
+		"PostLogic#list_posts_admin"
+		],
+	"template" : {
+		"name" : "user/post/list_table.twig"
+	}
+}

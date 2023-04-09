@@ -1,0 +1,53 @@
+{
+        "database" : {
+                "db_prod" : {
+                       "driver" : "mysql",
+                        "host" : "configure_your_db_host",
+                        "username" : "configure_your_db_username",
+                        "password" : "configure_your_db_password",
+                        "db_name" : "configure_your_db_name"
+                }
+        
+        },
+        "execution_mode" : {
+                "maintenance" : {
+                        "misc" : {
+                                "trace_enabled" : false,
+                                "debug_enabled" : false,
+                                "introspection_enabled" : false
+                        }
+                },
+                "development" : {
+                        "misc" : {
+                                "trace_enabled" : false,
+                                "debug_enabled" : false,
+                                "introspection_enabled" : false
+                        },
+                        "session" : {
+                                "use_strict" : null
+                        }
+                },
+                "production" : {
+                        "session" : {
+                                "use_strict" : null
+                        }
+                }
+        },
+        "logging": {
+            
+            "log_folder": "my_logs/"
+
+        },
+        "misc" : {
+           "send_email_notifications" : true,
+           "admin" : {
+                "id" : 2,
+                "full_name" : "Customer Name",
+                "e_mail" : "customer_email_address@email.com",
+                "username" : "customer_username",
+                "password" : "customer_password"
+           },
+           "basedir" : "",
+           "merge_wwwroot" : false
+        }
+}

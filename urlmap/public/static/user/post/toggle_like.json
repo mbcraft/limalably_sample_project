@@ -1,0 +1,4 @@
+{
+	"exec" : "LikesLogic#toggle_like",
+	"format" : "json"
+}

@@ -1,0 +1,9 @@
+{
+	"session" : {
+		"/user/role" : ["admin"]
+	},
+	"exec" : "PostLogic#load_post",
+	"template" : {
+		"name" : "user/post/edit_post_form.twig"
+	}
+}

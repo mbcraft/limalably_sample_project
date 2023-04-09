@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Elenco immagini di un post</title>
+		{% include 'pages/common/head_assets.twig' %}
+	</head>
+	<body>
+		{% include 'pages/common/top_menu_panel.twig' %}
+		{% include 'pages/backend/modal_delete_element.twig' %}
+		{% include 'pages/common/top_flash_messages.twig' %}
+		<div class="container p-3">
+			
+			<div>
+				<a href="/user/post/list_table">Torna all'elenco dei post</a>
+			</div>
+			{% for element in element_list %}
+				{% if loop.first %}
+				<table class="table table-hover table-striped table-primary caption-top  align-middle text-center">
+					<caption>Elenco delle immagini del post : {{ post.titolo }} - Categoria {{ post.category.category_name }} - (ID {{ post.id }})</caption>
+					<thead>
+						<th>ID</th>
+						<th>Anteprima</th>
+						<th>Ordine</th>
+						<th>Operazioni</th>
+					</thead>
+					<tbody class="table-group-divider">
+				{% endif %}
+
+				<tr>
+					<td>{{ element.id }}</td>
+					<td><img src="{{ element.attachment.my_preview_image_url }}" /></td>
+					<td>{{ element.order_val }}</td>
+					<td class="align-top">
+						<div class="container d-flex">
+							<div class="vstack gap-2">
+								{% if not loop.first %}
+								<div class="hstack gap-2">
+									<form methdo="POST" action="/user/post/images/move_first">
+										<input type="hidden" name="post_id" value="{{post.id}}" >
+										<input type="hidden" name="attach_el_id" value="{{element.id}}" >
+										<button type="submit" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Sposta all'inizio" class="btn btn-primary"><i class="fa-solid fa-backward-fast"></i></button>
+									</form>
+									<form methdo="POST" action="/user/post/images/move_previous">
+										<input type="hidden" name="post_id" value="{{post.id}}" >
+										<input type="hidden" name="attach_el_id" value="{{element.id}}" >
+										<button type="submit" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Sposta prima" class="btn btn-primary"><i class="fa-solid fa-backward-step"></i></button>
+									</form>
+								</div>
+								{% endif %}
+								{% if not loop.last %}
+								<div class="hstack gap-2">
+									<form method="POST" action="/user/post/images/move_next">
+										<input type="hidden" name="post_id" value="{{post.id}}" >
+										<input type="hidden" name="attach_el_id" value="{{element.id}}" >
+										<button type="submit" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Sposta dopo" class="btn btn-primary"><i class="fa-solid fa-forward-step"></i></button>
+									</form>
+									<form method="POST" action="/user/post/images/move_last">
+										<input type="hidden" name="post_id" value="{{post.id}}" >
+										<input type="hidden" name="attach_el_id" value="{{element.id}}" >
+										<button type="submit" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Sposta alla fine" class="btn btn-primary"><i class="fa-solid fa-forward-fast"></i></button>
+									</form>
+								</div>
+								{% endif %}
+								<div class="hstack gap-2">
+									<form id="deleteImageForm_{{element.id}}" methdo="POST" action="/user/post/images/delete_image">
+										<input type="hidden" name="post_id" value="{{post.id}}" >
+										<input type="hidden" name="attach_el_id" value="{{element.id}}" >
+										<button type="button" data-bs-toggle="modal" data-bs-target="#modalDeleteElement" data-form-target="deleteImageForm_{{element.id}}" class="open-modal-delete-button btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+									</form>
+								</div>
+							</div>
+						</div>
+					</td>
+				</tr>
+
+				{% if loop.last %}
+					</tbody>
+				</table>
+				{% endif %}
+			{% else %}
+			<div class="container">
+				<div class="row justify-content-center">
+					<div class="col-6 text-center">
+						<h3>Non ci sono immagini da visualizzare</h3>
+					</div>
+				</div>
+			</div>
+				
+			{% endfor %}
+			<div class="container">
+				<div class="row justify-content-center">
+					<div class="col-6 text-center">
+						<form method="POST" action="/user/post/images/add_image_form">
+							<input type="hidden" name="post_id" value="{{ post.id }}">
+							Aggiungi una nuova immagine : <button type="submit" class="btn btn-primary"><i class="fa-solid fa-plus"></i></button>
+						</form>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		{% include 'pages/backend/footer_tooltip_activator.twig' %}
+	</body>
+</html>
